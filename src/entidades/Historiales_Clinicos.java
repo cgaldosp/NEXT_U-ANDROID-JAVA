@@ -5,17 +5,24 @@
  */
 package entidades;
 
+import java.util.List;
+
 /**
  *
  * @author Carlos
  */
-public class Historiales_Clinicos{
+public class Historiales_Clinicos extends Base{
     private String codigo;
     private String fecha;
     private String idPaciente;
     private String idMedico;
     private String observaciones;
+    private List<Historiales_Clinicos> listaHistoriales;    
     
+    public boolean validar(){
+        boolean llOk = false;
+        return llOk;
+    }
     public boolean insertar(){
         boolean llOk = false;
         return llOk;
@@ -101,5 +108,19 @@ public class Historiales_Clinicos{
      */
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
+    }
+
+    /**
+     * @return the listaHistoriales
+     */
+    public List<Historiales_Clinicos> getListaHistoriales() {
+        return listaHistoriales;
+    }
+
+    /**
+     * @param listaHistoriales the listaHistoriales to set
+     */
+    public void setListaHistoriales(List<Historiales_Clinicos> listaHistoriales) {
+        this.listaHistoriales = listaHistoriales;
     }
 }

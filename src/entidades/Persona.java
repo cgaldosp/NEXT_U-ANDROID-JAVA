@@ -9,14 +9,10 @@ package entidades;
  *
  * @author Carlos
  */
-public abstract class Persona {
+public abstract class Persona extends Base{
     private String identificacion;
     private String nombres;
     private String apellidos;
-    public abstract boolean insertar();
-    public abstract boolean eliminar();
-    public abstract boolean modificar();
-    public abstract boolean validar();
 
     /**
      * @return the identificacion

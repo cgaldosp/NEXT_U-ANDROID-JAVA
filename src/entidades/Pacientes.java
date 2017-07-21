@@ -5,6 +5,8 @@
  */
 package entidades;
 
+import java.util.List;
+
 /**
  *
  * @author Carlos
@@ -12,6 +14,8 @@ package entidades;
 public class Pacientes extends Persona{
     private int edad;
     private String genero;
+    private List<Pacientes> listaPacientes;
+    
 
     public boolean validar(){
         boolean llOk = false;
@@ -61,4 +65,18 @@ public class Pacientes extends Persona{
     public void setGenero(String genero) {
         this.genero = genero;
     }    
+
+    /**
+     * @return the listaPacientes
+     */
+    public List<Pacientes> getListaPacientes() {
+        return listaPacientes;
+    }
+
+    /**
+     * @param listaPacientes the listaPacientes to set
+     */
+    public void setListaPacientes(List<Pacientes> listaPacientes) {
+        this.listaPacientes = listaPacientes;
+    }
 }

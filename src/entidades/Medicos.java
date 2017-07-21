@@ -5,12 +5,15 @@
  */
 package entidades;
 
+import java.util.List;
+
 /**
  *
  * @author Carlos
  */
 public class Medicos extends Persona{
     private String especialidad;
+    private List<Medicos> listaMedicos;    
     
     public boolean validar(){
         boolean llOk = false;
@@ -45,6 +48,20 @@ public class Medicos extends Persona{
      */
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
+    }
+
+    /**
+     * @return the listaMedicos
+     */
+    public List<Medicos> getListaMedicos() {
+        return listaMedicos;
+    }
+
+    /**
+     * @param listaMedicos the listaMedicos to set
+     */
+    public void setListaMedicos(List<Medicos> listaMedicos) {
+        this.listaMedicos = listaMedicos;
     }
     
     
