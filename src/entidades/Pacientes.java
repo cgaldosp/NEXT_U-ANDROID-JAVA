@@ -11,29 +11,50 @@ import java.util.List;
  *
  * @author Carlos
  */
-public class Pacientes extends Persona{
+public class Pacientes extends Persona {
+
     private int edad;
     private String genero;
     private List<Pacientes> listaPacientes;
-    
 
-    public boolean validar(){
+    public boolean validar() {
+        boolean llOk = true;
+        return llOk;
+    }
+
+    public boolean insertar() {
+        boolean llOk = false;
+        llOk = validar();
+        if (llOk) {
+            Pacientes loPaciente = new Pacientes();
+            loPaciente.setIdentificacion(getIdentificacion());
+            loPaciente.setNombres(getNombres());
+            loPaciente.setApellidos(getApellidos());
+            loPaciente.setEdad(edad);
+            loPaciente.setGenero(genero);
+            listaPacientes.add(loPaciente);
+        }
+        return llOk;
+    }
+
+    public boolean eliminar() {
         boolean llOk = false;
         return llOk;
     }
-    public boolean insertar(){
-        boolean llOk = false;
-        return llOk;
+
+    public String consultar() {
+        String lcResultado = "";
+        for (int i = 0; i < listaPacientes.size(); i++) {
+            lcResultado = lcResultado + "Id: " + listaPacientes.get(i).getIdentificacion() + "\n"
+                    + "Nombres: " + listaPacientes.get(i).getNombres() + "\n"
+                    + "Apellidos: " + listaPacientes.get(i).getApellidos() + "\n"
+                    + "Edad: " + listaPacientes.get(i).getEdad() + "\n"
+                    + "Género: " + listaPacientes.get(i).getGenero() + "\n\n";            
+        }
+        return lcResultado;
     }
-    public boolean eliminar(){
-        boolean llOk = false;
-        return llOk;
-    }
-    public boolean consultar(){
-        boolean llOk = false;
-        return llOk;
-    }
-    public boolean modificar(){
+
+    public boolean modificar() {
         boolean llOk = false;
         return llOk;
     }
@@ -64,7 +85,7 @@ public class Pacientes extends Persona{
      */
     public void setGenero(String genero) {
         this.genero = genero;
-    }    
+    }
 
     /**
      * @return the listaPacientes

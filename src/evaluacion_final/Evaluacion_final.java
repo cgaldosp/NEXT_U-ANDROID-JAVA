@@ -8,6 +8,7 @@ package evaluacion_final;
 import entidades.Historiales_Clinicos;
 import entidades.Medicos;
 import entidades.Pacientes;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -26,6 +27,9 @@ public class Evaluacion_final {
      */
     public static void main(String[] args) {
         boolean llOk = true;
+        listaPacientes = new ArrayList<Pacientes>();
+        listaMedicos = new ArrayList<Medicos>();
+        listaHistoriales = new ArrayList<Historiales_Clinicos>();
         do {
             String opcion = JOptionPane.showInputDialog(null, "1. Gestionar Pacientes.\n"
                     + "2. Gestionar Médicos.\n"
@@ -77,11 +81,11 @@ public class Evaluacion_final {
     public static boolean registrar(String p_cEntidad) {
         boolean llOk = false;
         if (p_cEntidad.equals("Pacientes")) {
-            String id = JOptionPane.showInputDialog("null", "Ingrese Identificacion");
-            String apellidos = JOptionPane.showInputDialog("null", "Ingrese Apellidos");
-            String nombres = JOptionPane.showInputDialog("null", "Ingrese Nombres");
-            String edad = JOptionPane.showInputDialog("null", "Ingrese Edad");
-            String genero = JOptionPane.showInputDialog("null", "Ingrese Género");
+            String id = JOptionPane.showInputDialog(null, "Ingrese Identificacion");
+            String apellidos = JOptionPane.showInputDialog(null, "Ingrese Apellidos");
+            String nombres = JOptionPane.showInputDialog(null, "Ingrese Nombres");
+            String edad = JOptionPane.showInputDialog(null, "Ingrese Edad");
+            String genero = JOptionPane.showInputDialog(null, "Ingrese Género");
             Pacientes loPaciente = new Pacientes();
             loPaciente.setListaPacientes(getListaPacientes());
             loPaciente.setIdentificacion(id);
@@ -95,11 +99,11 @@ public class Evaluacion_final {
             } else {
                 setListaPacientes(loPaciente.getListaPacientes());
             }
-        } else if (p_cEntidad.equals("Medicos")) {
-            String id = JOptionPane.showInputDialog("null", "Ingrese Identificacion");
-            String apellidos = JOptionPane.showInputDialog("null", "Ingrese Apellidos");
-            String nombres = JOptionPane.showInputDialog("null", "Ingrese Nombres");
-            String especialidad = JOptionPane.showInputDialog("null", "Ingrese Especialidad");
+        } else if (p_cEntidad.equals("Médicos")) {
+            String id = JOptionPane.showInputDialog(null, "Ingrese Identificacion");
+            String apellidos = JOptionPane.showInputDialog(null, "Ingrese Apellidos");
+            String nombres = JOptionPane.showInputDialog(null, "Ingrese Nombres");
+            String especialidad = JOptionPane.showInputDialog(null, "Ingrese Especialidad");
             Medicos loMedicos = new Medicos();
             loMedicos.setListaMedicos(getListaMedicos());
             loMedicos.setIdentificacion(id);
@@ -113,11 +117,11 @@ public class Evaluacion_final {
                 setListaMedicos(loMedicos.getListaMedicos());
             }
         } else if (p_cEntidad.equals("Historial Clinico")) {
-            String codigo = JOptionPane.showInputDialog("null", "Ingrese Código");
-            String fecha = JOptionPane.showInputDialog("null", "Ingrese Fecha");
-            String paciente = JOptionPane.showInputDialog("null", "Ingrese Id Paciente");
-            String medico = JOptionPane.showInputDialog("null", "Ingrese ID Médico");
-            String observaciones = JOptionPane.showInputDialog("null", "Ingrese Observaciones");
+            String codigo = JOptionPane.showInputDialog(null, "Ingrese Código");
+            String fecha = JOptionPane.showInputDialog(null, "Ingrese Fecha");
+            String paciente = JOptionPane.showInputDialog(null, "Ingrese Id Paciente");
+            String medico = JOptionPane.showInputDialog(null, "Ingrese ID Médico");
+            String observaciones = JOptionPane.showInputDialog(null, "Ingrese Observaciones");
             Historiales_Clinicos loHistorial = new Historiales_Clinicos();
             loHistorial.setListaHistoriales(getListaHistoriales());
             loHistorial.setCodigo(codigo);
@@ -137,9 +141,19 @@ public class Evaluacion_final {
         return llOk;
     }
 
-    public static boolean mostrar(String p_cEntidad) {
-        boolean llOk = false;
-        return llOk;
+    public static void mostrar(String p_cEntidad) {
+        String lcResultado = "";
+        if (p_cEntidad.equals("Pacientes")) {
+            Pacientes loPaciente = new Pacientes();            
+            lcResultado = loPaciente.consultar();
+        }else if (p_cEntidad.equals("Medicos")) {
+            Medicos loMedico = new Medicos();
+            lcResultado = loMedico.consultar();
+        }else if (p_cEntidad.equals("Historiales")) {
+            Historiales_Clinicos loHistorial = new Historiales_Clinicos();
+            lcResultado = loHistorial.consultar();
+        }
+        JOptionPane.showMessageDialog(null, lcResultado);
     }
 
     public static boolean modificar(String p_cEntidad) {

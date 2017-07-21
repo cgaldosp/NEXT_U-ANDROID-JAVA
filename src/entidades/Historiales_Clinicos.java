@@ -20,20 +20,37 @@ public class Historiales_Clinicos extends Base{
     private List<Historiales_Clinicos> listaHistoriales;    
     
     public boolean validar(){
-        boolean llOk = false;
+        boolean llOk = true;
         return llOk;
     }
     public boolean insertar(){
         boolean llOk = false;
+        llOk = validar();
+        if (llOk) {
+            Historiales_Clinicos loHistorial = new Historiales_Clinicos();
+            loHistorial.setCodigo(getCodigo());
+            loHistorial.setFecha(getFecha());
+            loHistorial.setIdMedico(getIdMedico());
+            loHistorial.setIdPaciente(getIdPaciente());
+            loHistorial.setObservaciones(observaciones);
+            listaHistoriales.add(loHistorial);
+        }
         return llOk;
     }
     public boolean eliminar(){
         boolean llOk = false;
         return llOk;
     }
-    public boolean consultar(){
-        boolean llOk = false;
-        return llOk;
+    public String consultar() {
+        String lcResultado = "";
+        for (int i = 0; i < listaHistoriales.size(); i++) {
+            lcResultado = lcResultado + "Codigo: " + listaHistoriales.get(i).getCodigo() + "\n"
+                    + "Fecha: " + listaHistoriales.get(i).getFecha() + "\n"
+                    + "Id Medico: " + listaHistoriales.get(i).getIdMedico() + "\n"
+                    + "Id Paciente: " + listaHistoriales.get(i).getIdPaciente() + "\n"
+                    + "Observaciones: " + listaHistoriales.get(i).getObservaciones() + "\n\n";            
+        }
+        return lcResultado;
     }
     public boolean modificar(){
         boolean llOk = false;
