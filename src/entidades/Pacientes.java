@@ -6,6 +6,7 @@
 package entidades;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,15 +18,17 @@ public class Pacientes extends Persona {
     private String genero;
     private List<Pacientes> listaPacientes;
 
-    public boolean validar() {
-        boolean llOk = true;
-        return llOk;
-    }
-
     public boolean insertar() {
         boolean llOk = false;
-        llOk = validar();
+        for (Pacientes paciente : listaPacientes) {
+            if (paciente.getIdentificacion().equals(getIdentificacion())) {
+                llOk = true;
+            }
+        }
         if (llOk) {
+            JOptionPane.showMessageDialog(null, "ID ya existe");
+            llOk = false;
+        } else {
             Pacientes loPaciente = new Pacientes();
             loPaciente.setIdentificacion(getIdentificacion());
             loPaciente.setNombres(getNombres());
@@ -33,12 +36,27 @@ public class Pacientes extends Persona {
             loPaciente.setEdad(edad);
             loPaciente.setGenero(genero);
             listaPacientes.add(loPaciente);
+            llOk = true;
         }
         return llOk;
     }
 
     public boolean eliminar() {
         boolean llOk = false;
+        int i = 0;
+        int j = 0;
+        for (Pacientes paciente : listaPacientes) {
+            if (paciente.getIdentificacion().equals(getIdentificacion())) {
+                llOk = true;
+                j = i;
+            }
+            i = i + 1;
+        }
+        if (!llOk) {
+            JOptionPane.showMessageDialog(null, "ID NO existe");
+        } else {
+            listaPacientes.remove(j);
+        }
         return llOk;
     }
 
@@ -49,13 +67,33 @@ public class Pacientes extends Persona {
                     + "Nombres: " + listaPacientes.get(i).getNombres() + "\n"
                     + "Apellidos: " + listaPacientes.get(i).getApellidos() + "\n"
                     + "Edad: " + listaPacientes.get(i).getEdad() + "\n"
-                    + "Género: " + listaPacientes.get(i).getGenero() + "\n\n";            
+                    + "Género: " + listaPacientes.get(i).getGenero() + "\n\n";
         }
         return lcResultado;
     }
 
     public boolean modificar() {
         boolean llOk = false;
+        int i = 0;
+        int j = 0;
+        for (Pacientes paciente : listaPacientes) {
+            if (paciente.getIdentificacion().equals(getIdentificacion())) {
+                llOk = true;
+                j = i;
+            }
+            i = i + 1;
+        }
+        if (!llOk) {
+            JOptionPane.showMessageDialog(null, "ID NO existe");
+        } else {
+            Pacientes loPaciente = new Pacientes();
+            loPaciente.setIdentificacion(getIdentificacion());
+            loPaciente.setNombres(getNombres());
+            loPaciente.setApellidos(getApellidos());
+            loPaciente.setEdad(edad);
+            loPaciente.setGenero(genero);
+            listaPacientes.set(j, loPaciente);
+        }
         return llOk;
     }
 

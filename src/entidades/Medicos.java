@@ -6,37 +6,59 @@
 package entidades;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Carlos
  */
-public class Medicos extends Persona{
+public class Medicos extends Persona {
+
     private String especialidad;
-    private List<Medicos> listaMedicos;    
-    
-    public boolean validar(){
-        boolean llOk = true;
-        return llOk;
-    }
-    public boolean insertar(){
+    private List<Medicos> listaMedicos;
+
+    public boolean insertar() {
         boolean llOk = false;
-        llOk = validar();
+        for (Medicos medico : listaMedicos) {
+            if (medico.getIdentificacion().equals(getIdentificacion())) {
+                llOk = true;
+            }
+        }
         if (llOk) {
+            JOptionPane.showMessageDialog(null, "ID ya existe");
+            llOk = false;
+        } else {
             Medicos loMedicos = new Medicos();
             loMedicos.setIdentificacion(getIdentificacion());
             loMedicos.setNombres(getNombres());
             loMedicos.setApellidos(getApellidos());
             loMedicos.setEspecialidad(especialidad);
             listaMedicos.add(loMedicos);
+            llOk = true;
         }
         return llOk;
     }
-    public boolean eliminar(){
+
+    public boolean eliminar() {
         boolean llOk = false;
+        int i = 0;
+        int j = 0;
+        for (Medicos medico : listaMedicos) {
+            if (medico.getIdentificacion().equals(getIdentificacion())) {
+                llOk = true;
+                j = i;
+            }
+            i = i + 1;
+        }
+        if (!llOk) {
+            JOptionPane.showMessageDialog(null, "ID NO existe");
+        } else {
+            listaMedicos.remove(j);
+        }
         return llOk;
     }
-    public String consultar(){
+
+    public String consultar() {
         String lcResultado = "";
         for (int i = 0; i < listaMedicos.size(); i++) {
             lcResultado = lcResultado + "Id: " + listaMedicos.get(i).getIdentificacion() + "\n"
@@ -46,8 +68,28 @@ public class Medicos extends Persona{
         }
         return lcResultado;
     }
-    public boolean modificar(){
+
+    public boolean modificar() {
         boolean llOk = false;
+        int i = 0;
+        int j = 0;
+        for (Medicos medico : listaMedicos) {
+            if (medico.getIdentificacion().equals(getIdentificacion())) {
+                llOk = true;
+                j = i;
+            }
+            i = i + 1;
+        }
+        if (!llOk) {
+            JOptionPane.showMessageDialog(null, "ID NO existe");
+        } else {
+            Medicos loMedico = new Medicos();
+            loMedico.setIdentificacion(getIdentificacion());
+            loMedico.setNombres(getNombres());
+            loMedico.setApellidos(getApellidos());
+            loMedico.setEspecialidad(especialidad);
+            listaMedicos.set(j, loMedico);
+        }
         return llOk;
     }
 
@@ -78,6 +120,5 @@ public class Medicos extends Persona{
     public void setListaMedicos(List<Medicos> listaMedicos) {
         this.listaMedicos = listaMedicos;
     }
-    
-    
+
 }

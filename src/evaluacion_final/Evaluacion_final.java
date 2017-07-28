@@ -84,7 +84,17 @@ public class Evaluacion_final {
             String id = JOptionPane.showInputDialog(null, "Ingrese Identificacion");
             String apellidos = JOptionPane.showInputDialog(null, "Ingrese Apellidos");
             String nombres = JOptionPane.showInputDialog(null, "Ingrese Nombres");
-            String edad = JOptionPane.showInputDialog(null, "Ingrese Edad");
+            String edad = "0";
+            do{
+                edad = JOptionPane.showInputDialog(null, "Ingrese Edad");
+                try{
+                    Integer.parseInt(edad);
+                    llOk = true;
+                }catch(Exception loErr){
+                    JOptionPane.showMessageDialog(null, "Edad inválida");
+                    llOk = false;
+                }
+            } while (!llOk);
             String genero = JOptionPane.showInputDialog(null, "Ingrese Género");
             Pacientes loPaciente = new Pacientes();
             loPaciente.setListaPacientes(getListaPacientes());
@@ -116,7 +126,7 @@ public class Evaluacion_final {
             } else {
                 setListaMedicos(loMedicos.getListaMedicos());
             }
-        } else if (p_cEntidad.equals("Historial Clinico")) {
+        } else if (p_cEntidad.equals("Historial Clínico")) {
             String codigo = JOptionPane.showInputDialog(null, "Ingrese Código");
             String fecha = JOptionPane.showInputDialog(null, "Ingrese Fecha");
             String paciente = JOptionPane.showInputDialog(null, "Ingrese Id Paciente");
@@ -144,13 +154,16 @@ public class Evaluacion_final {
     public static void mostrar(String p_cEntidad) {
         String lcResultado = "";
         if (p_cEntidad.equals("Pacientes")) {
-            Pacientes loPaciente = new Pacientes();            
+            Pacientes loPaciente = new Pacientes();
+            loPaciente.setListaPacientes(getListaPacientes());
             lcResultado = loPaciente.consultar();
-        }else if (p_cEntidad.equals("Medicos")) {
+        }else if (p_cEntidad.equals("Médicos")) {
             Medicos loMedico = new Medicos();
+            loMedico.setListaMedicos(getListaMedicos());
             lcResultado = loMedico.consultar();
-        }else if (p_cEntidad.equals("Historiales")) {
+        }else if (p_cEntidad.equals("Historial Clínico")) {
             Historiales_Clinicos loHistorial = new Historiales_Clinicos();
+            loHistorial.setListaHistoriales(getListaHistoriales());
             lcResultado = loHistorial.consultar();
         }
         JOptionPane.showMessageDialog(null, lcResultado);
@@ -158,11 +171,105 @@ public class Evaluacion_final {
 
     public static boolean modificar(String p_cEntidad) {
         boolean llOk = false;
+        if (p_cEntidad.equals("Pacientes")) {
+            String id = JOptionPane.showInputDialog(null, "Ingrese Identificacion");
+            String apellidos = JOptionPane.showInputDialog(null, "Ingrese Apellidos");
+            String nombres = JOptionPane.showInputDialog(null, "Ingrese Nombres");
+            String edad = JOptionPane.showInputDialog(null, "Ingrese Edad");
+            String genero = JOptionPane.showInputDialog(null, "Ingrese Género");
+            Pacientes loPaciente = new Pacientes();
+            loPaciente.setListaPacientes(getListaPacientes());
+            loPaciente.setIdentificacion(id);
+            loPaciente.setApellidos(apellidos);
+            loPaciente.setNombres(nombres);
+            loPaciente.setEdad(Integer.parseInt(edad));
+            loPaciente.setGenero(genero);
+            llOk = loPaciente.modificar();
+            if (!llOk) {
+                JOptionPane.showMessageDialog(null, loPaciente.getError());
+            } else {
+                setListaPacientes(loPaciente.getListaPacientes());
+            }
+        } else if (p_cEntidad.equals("Médicos")) {
+            String id = JOptionPane.showInputDialog(null, "Ingrese Identificacion");
+            String apellidos = JOptionPane.showInputDialog(null, "Ingrese Apellidos");
+            String nombres = JOptionPane.showInputDialog(null, "Ingrese Nombres");
+            String especialidad = JOptionPane.showInputDialog(null, "Ingrese Especialidad");
+            Medicos loMedicos = new Medicos();
+            loMedicos.setListaMedicos(getListaMedicos());
+            loMedicos.setIdentificacion(id);
+            loMedicos.setApellidos(apellidos);
+            loMedicos.setNombres(nombres);
+            loMedicos.setEspecialidad(especialidad);
+            llOk = loMedicos.modificar();
+            if (!llOk) {
+                JOptionPane.showMessageDialog(null, loMedicos.getError());
+            } else {
+                setListaMedicos(loMedicos.getListaMedicos());
+            }
+        } else if (p_cEntidad.equals("Historial Clínico")) {
+            String codigo = JOptionPane.showInputDialog(null, "Ingrese Código");
+            String fecha = JOptionPane.showInputDialog(null, "Ingrese Fecha");
+            String paciente = JOptionPane.showInputDialog(null, "Ingrese Id Paciente");
+            String medico = JOptionPane.showInputDialog(null, "Ingrese ID Médico");
+            String observaciones = JOptionPane.showInputDialog(null, "Ingrese Observaciones");
+            Historiales_Clinicos loHistorial = new Historiales_Clinicos();
+            loHistorial.setListaHistoriales(getListaHistoriales());
+            loHistorial.setCodigo(codigo);
+            loHistorial.setFecha(fecha);
+            loHistorial.setIdPaciente(paciente);
+            loHistorial.setIdMedico(medico);
+            loHistorial.setObservaciones(observaciones);
+            llOk = loHistorial.modificar();
+            if (!llOk) {
+                JOptionPane.showMessageDialog(null, loHistorial.getError());
+            } else {
+                setListaHistoriales(loHistorial.getListaHistoriales());
+            }
+        } else{
+            llOk = false;
+        }        
         return llOk;
     }
 
     public static boolean eliminar(String p_cEntidad) {
         boolean llOk = false;
+        if (p_cEntidad.equals("Pacientes")) {
+            String id = JOptionPane.showInputDialog(null, "Ingrese Identificacion");
+            Pacientes loPaciente = new Pacientes();
+            loPaciente.setListaPacientes(getListaPacientes());
+            loPaciente.setIdentificacion(id);
+            llOk = loPaciente.eliminar();
+            if (!llOk) {
+                JOptionPane.showMessageDialog(null, loPaciente.getError());
+            } else {
+                setListaPacientes(loPaciente.getListaPacientes());
+            }
+        } else if (p_cEntidad.equals("Médicos")) {
+            String id = JOptionPane.showInputDialog(null, "Ingrese Identificacion");
+            Medicos loMedicos = new Medicos();
+            loMedicos.setListaMedicos(getListaMedicos());
+            loMedicos.setIdentificacion(id);
+            llOk = loMedicos.eliminar();
+            if (!llOk) {
+                JOptionPane.showMessageDialog(null, loMedicos.getError());
+            } else {
+                setListaMedicos(loMedicos.getListaMedicos());
+            }
+        } else if (p_cEntidad.equals("Historial Clínico")) {
+            String codigo = JOptionPane.showInputDialog(null, "Ingrese Código");
+            Historiales_Clinicos loHistorial = new Historiales_Clinicos();
+            loHistorial.setListaHistoriales(getListaHistoriales());
+            loHistorial.setCodigo(codigo);
+            llOk = loHistorial.eliminar();
+            if (!llOk) {
+                JOptionPane.showMessageDialog(null, loHistorial.getError());
+            } else {
+                setListaHistoriales(loHistorial.getListaHistoriales());
+            }
+        } else{
+            llOk = false;
+        }        
         return llOk;
     }
 

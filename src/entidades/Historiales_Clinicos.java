@@ -6,6 +6,7 @@
 package entidades;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,14 +20,17 @@ public class Historiales_Clinicos extends Base{
     private String observaciones;
     private List<Historiales_Clinicos> listaHistoriales;    
     
-    public boolean validar(){
-        boolean llOk = true;
-        return llOk;
-    }
     public boolean insertar(){
         boolean llOk = false;
-        llOk = validar();
+        for (Historiales_Clinicos historial : listaHistoriales) {
+            if (historial.getCodigo().equals(getCodigo())) {
+                llOk = true;
+            }
+        }
         if (llOk) {
+            JOptionPane.showMessageDialog(null, "Código ya existe");
+            llOk = false;
+        } else {
             Historiales_Clinicos loHistorial = new Historiales_Clinicos();
             loHistorial.setCodigo(getCodigo());
             loHistorial.setFecha(getFecha());
@@ -34,11 +38,26 @@ public class Historiales_Clinicos extends Base{
             loHistorial.setIdPaciente(getIdPaciente());
             loHistorial.setObservaciones(observaciones);
             listaHistoriales.add(loHistorial);
+            llOk = true;
         }
         return llOk;
     }
     public boolean eliminar(){
         boolean llOk = false;
+        int i = 0;
+        int j = 0;
+        for (Historiales_Clinicos historial : listaHistoriales) {
+            if (historial.getCodigo().equals(getCodigo())) {
+                llOk = true;
+                j = i;
+            }
+            i = i + 1;
+        }
+        if (!llOk) {
+            JOptionPane.showMessageDialog(null, "ID NO existe");
+        } else {
+            listaHistoriales.remove(j);
+        }
         return llOk;
     }
     public String consultar() {
@@ -54,6 +73,26 @@ public class Historiales_Clinicos extends Base{
     }
     public boolean modificar(){
         boolean llOk = false;
+        int i = 0;
+        int j = 0;
+        for (Historiales_Clinicos historial : listaHistoriales) {
+            if (historial.getCodigo().equals(getCodigo())) {
+                llOk = true;
+                j = i;
+            }
+            i = i + 1;
+        }
+        if (!llOk) {
+            JOptionPane.showMessageDialog(null, "ID NO existe");
+        } else {
+                Historiales_Clinicos loHistorial = new Historiales_Clinicos();
+                loHistorial.setCodigo(getCodigo());
+                loHistorial.setFecha(getFecha());
+                loHistorial.setIdMedico(getIdMedico());
+                loHistorial.setIdPaciente(getIdPaciente());
+                loHistorial.setObservaciones(observaciones);
+                listaHistoriales.set(j, loHistorial);
+        }                
         return llOk;
     }
 

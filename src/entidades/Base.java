@@ -15,7 +15,6 @@ public abstract class Base {
     public abstract boolean insertar();
     public abstract boolean eliminar();
     public abstract boolean modificar();
-    public abstract boolean validar();
     
     /**
      * @return the error
