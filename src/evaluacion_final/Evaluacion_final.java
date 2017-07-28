@@ -30,6 +30,7 @@ public class Evaluacion_final {
         listaPacientes = new ArrayList<Pacientes>();
         listaMedicos = new ArrayList<Medicos>();
         listaHistoriales = new ArrayList<Historiales_Clinicos>();
+        //Menú Inicial
         do {
             String opcion = JOptionPane.showInputDialog(null, "1. Gestionar Pacientes.\n"
                     + "2. Gestionar Médicos.\n"
@@ -56,6 +57,7 @@ public class Evaluacion_final {
 
     public static void mostrarMenu(String p_cEntidad) {
         boolean llOk = true;
+        //Menú de Opciones
         do {
             String opcion = JOptionPane.showInputDialog(null, "1. Registrar " + p_cEntidad + ".\n"
                     + "2. Mostrar " + p_cEntidad + ".\n"
@@ -78,8 +80,10 @@ public class Evaluacion_final {
         } while (llOk);
     }
 
+    //Realiza registro de entidades
     public static boolean registrar(String p_cEntidad) {
         boolean llOk = false;
+        //Verifica si es una operación de pacientes
         if (p_cEntidad.equals("Pacientes")) {
             String id = JOptionPane.showInputDialog(null, "Ingrese Identificacion");
             String apellidos = JOptionPane.showInputDialog(null, "Ingrese Apellidos");
@@ -109,6 +113,7 @@ public class Evaluacion_final {
             } else {
                 setListaPacientes(loPaciente.getListaPacientes());
             }
+        //Verifica si es una operación de médicos
         } else if (p_cEntidad.equals("Médicos")) {
             String id = JOptionPane.showInputDialog(null, "Ingrese Identificacion");
             String apellidos = JOptionPane.showInputDialog(null, "Ingrese Apellidos");
@@ -126,6 +131,7 @@ public class Evaluacion_final {
             } else {
                 setListaMedicos(loMedicos.getListaMedicos());
             }
+        //Verifica si es una operación de historias clínicas            
         } else if (p_cEntidad.equals("Historial Clínico")) {
             String codigo = JOptionPane.showInputDialog(null, "Ingrese Código");
             String fecha = JOptionPane.showInputDialog(null, "Ingrese Fecha");
@@ -150,7 +156,8 @@ public class Evaluacion_final {
         }
         return llOk;
     }
-
+    
+    //Muestra datos registrados
     public static void mostrar(String p_cEntidad) {
         String lcResultado = "";
         if (p_cEntidad.equals("Pacientes")) {
@@ -169,6 +176,7 @@ public class Evaluacion_final {
         JOptionPane.showMessageDialog(null, lcResultado);
     }
 
+    //Actualiza datos en base a identificador
     public static boolean modificar(String p_cEntidad) {
         boolean llOk = false;
         if (p_cEntidad.equals("Pacientes")) {
@@ -232,6 +240,7 @@ public class Evaluacion_final {
         return llOk;
     }
 
+    //Elimina entidad en función al ID
     public static boolean eliminar(String p_cEntidad) {
         boolean llOk = false;
         if (p_cEntidad.equals("Pacientes")) {

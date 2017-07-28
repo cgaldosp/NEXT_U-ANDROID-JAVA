@@ -9,11 +9,14 @@ package entidades;
  *
  * @author Carlos
  */
-public abstract class Base {
-    private String error;
+public abstract class Base {    
+    private String error;//Almacena descripción de error.
 
+    //Realiza operación de inserción de entidades
     public abstract boolean insertar();
+    //Realiza operación de eliminación de entidades
     public abstract boolean eliminar();
+    //Realiza operación de modificación de entidades
     public abstract boolean modificar();
     
     /**
